@@ -1,0 +1,12 @@
+{
+    "users": [{
+        "username": "admin",
+        "first_name": "admin",
+        "last_name": "IT",
+        "email": "admin@homeassis.ro",
+        "password": "ZDrxa15GAjAUOpX",
+        "uuid": "admin_id",
+        "address": "address",
+        "city_id": "1"
+    }],
+}

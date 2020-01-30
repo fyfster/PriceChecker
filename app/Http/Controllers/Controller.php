@@ -9,5 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    CONST LOGIN_URL = 'login';
+    
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
