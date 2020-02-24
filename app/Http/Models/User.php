@@ -20,8 +20,6 @@ class User extends BaseModel
     protected $address;
     protected $cityId;
 
-    CONST BASE_TABLE = 'users';
-    CONST USER_ADDRESSES_TABLE = 'user_address';
     CONST PASSWORD_LENGTH = 8;
     CONST UUID_LENGTH = 8;
     CONST USERNAME_LENGTH = 5;
@@ -182,7 +180,7 @@ class User extends BaseModel
      */
     protected function loadBy($field, $value)
     {
-        $query = $this->db->table(User::BASE_TABLE);
+        $query = $this->db->table(self::USERS_TABLE);
 
         $result = $query->where($field, $value)->first();
 
@@ -304,7 +302,7 @@ class User extends BaseModel
     private function checkIfFieldInUse($field, $value)
     {
         $result = $this->db
-            ->table(User::BASE_TABLE)
+            ->table(self::USERS_TABLE)
             ->where($field, $value)
             ->select('id')
             ->first();
@@ -363,7 +361,7 @@ class User extends BaseModel
     public function save()
     {
         try {
-            $id = $this->db->table(User::BASE_TABLE)
+            $id = $this->db->table(self::USERS_TABLE)
                 ->insertGetId(
                     array(
                         'username' => $this->userName,
@@ -395,7 +393,7 @@ class User extends BaseModel
     public function update()
     {
         try {
-            $this->db->table(User::BASE_TABLE)
+            $this->db->table(self::USERS_TABLE)
                 ->where('id', $this->id)
                 ->update(
                     array(
@@ -428,7 +426,8 @@ class User extends BaseModel
     {
         $this->db->beginTransaction();
         $listOfTablesToDelete = array (
-            User::BASE_TABLE => ['id'],
+            self::USERS_TABLE => ['id'],
+            self::USER_PERMISSIONS_TABLE => ['user_id'],
         );
         //go thru each related table and delete
         foreach ($listOfTablesToDelete as $deleteFromTable => $columns) {

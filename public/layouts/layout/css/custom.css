@@ -1,4 +1,0 @@
-/* here you can put your own css to customize and override the theme */
-table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-    display: none;
-}

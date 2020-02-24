@@ -25,13 +25,12 @@ class LoginController extends Controller
     public function loginPage(Request $request)
     {
         $sessionInfo = $request->session()->get(UserSession::NAME);
-        $this->user = new UserSession();
-        if ($this->user->isLoggedIn()) {
-            $this->user->loadById($sessionInfo['id']);
+        $user = new UserSession();
+        if ($user->isLoggedIn()) {
+            $user->loadById($sessionInfo['id']);
             return redirect()->route('dashboard');
         }
 
-        //if a message is sent for login screen show it
         $data = array();
         if ($request->session()->has('message')) {
             $data['message'] = $request->session()->get('message');
@@ -54,15 +53,13 @@ class LoginController extends Controller
      */
     public function loginPost(Request $request)
     {
-        $this->user = new UserSession();
-        //if already logged then redirect to dashboard
-        if ($this->user->isLoggedIn()) {
+        $user = new UserSession();
+        if ($user->isLoggedIn()) {
             $sessionInfo = $request->session()->get(UserSession::NAME);
-            $this->user->loadById($sessionInfo['id']);
+            $user->loadById($sessionInfo['id']);
             return redirect()->route('dashboard');
         }
 
-        //input check
         $validatorResult = $this->validator->validate(array(
             'username' => array(Validator::REQUIRED),
             'password' => array(Validator::REQUIRED, [Validator::CHECK_MIN_LENGTH => User::PASSWORD_LENGTH]),
@@ -75,8 +72,7 @@ class LoginController extends Controller
             return redirect(self::LOGIN_URL);
         }
 
-        //adds info to session
-        if (!$this->user->login($request->get('username'), $request->get('password'))) {
+        if (!$user->login($request->get('username'), $request->get('password'))) {
             $request->session()->flash('input', array('username' => $request->get('username')));
             $this->setSessionMessage('auth.invalid_login', self::MESSAGE_TYPE_DANGER);
             return redirect()->route(self::LOGIN_URL);

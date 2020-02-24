@@ -47,14 +47,15 @@ class Session extends User
             $this->session->put(Session::NAME, $userData);
 
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
-     * Clears the seesion info
+     * Checks if the user has session information
      *
+     * @return bool
      */
     public function isLoggedIn()
     {

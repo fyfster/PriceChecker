@@ -6,6 +6,10 @@ use Illuminate\Support\Collection;
 
 class BaseModel
 {
+    CONST PERMISSIONS_TABLE = "permissions";
+    CONST USER_PERMISSIONS_TABLE = "user_permissions";
+    CONST USERS_TABLE = 'users';
+
     /**
      * @var \Illuminate\Database\Connection
      */
